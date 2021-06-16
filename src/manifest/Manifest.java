@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.sound.midi.SysexMessage;
+
 import exeptions.TargetNotFoundException;
 import struct.dataset.Attribut;
 import struct.dataset.Dataset;
@@ -24,12 +26,15 @@ public class Manifest
 
 	public static void main(String[] args) throws IOException, TargetNotFoundException
 	{
-		String filename="dataset/BL.csv";
+		String filename="";
 		int nbHoleMaxSelector = 1;
 		int nbHoleMaxSubgroup = 100;
 		if(args.length==0)
 		{
-			filename="dataset/AP.csv";
+			System.err.println("Wrong number of argument.\nExpected format: DATASET [nbDisSel] [nbDisSubG]\n"
+					+ "With nbDisSel: The maximum number of disontinuity in a selector\n"
+					+ "and nbDisSubG: The maximum number of disontinuity in the subgroup.");
+			System.exit(-1);
 		}
 		else
 		{
@@ -48,18 +53,16 @@ public class Manifest
 			}
 		}
 		File f = new File(filename);
-		System.out.println(filename);
 		Dataset data = new Dataset(f, null, ",");
 
 		Selector.NB_HOLE_MAX=nbHoleMaxSelector;
 		Subgroup.NB_HOLE_MAX=nbHoleMaxSubgroup;
 
-		System.out.println();
 		Attribut attr = data.getAttributAt(0);
-		for(int i = 0; i < data.getNbTransaction();i++)
-		{
-			System.out.println(i + ": " + attr.getValueAt(i));
-		}
+//		for(int i = 0; i < data.getNbTransaction();i++)
+//		{
+//			System.out.println(i + ": " + attr.getValueAt(i));
+//		}
 
 		Interval inter;
 		Selector select = new Selector(attr);
@@ -95,11 +98,11 @@ public class Manifest
 			}
 			//System.out.println("Added: "+current.toString(true));
 
-			System.out.println(toBeTreated.size()+ " " + data.getBestScore()+ " " + current.getBestScore());
+			//System.out.println(toBeTreated.size()+ " " + data.getBestScore()+ " " + current.getBestScore());
 		}
 
-		System.out.println(data.getBestScore());
 		System.out.println(data.getBestSubgroup());
+		System.out.println("\nScore: " + data.getBestScore());
 
 		//System.out.println(group.toString(true));
 

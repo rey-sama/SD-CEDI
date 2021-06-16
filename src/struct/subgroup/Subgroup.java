@@ -100,7 +100,7 @@ public class Subgroup
 			if(!dataset.putCombiInfo(sub0.listTransaction, keyCombi))
 			{
 				listGroup.remove(0);
-				System.out.println("------------------REMOVED------------------------");
+				//System.out.println("------------------REMOVED------------------------");
 			}
 		}
 		return listGroup;

@@ -39,7 +39,7 @@ public class Dataset
 		
 		Scanner scan = new Scanner(f);
 		String head = scan.next();
-		System.out.println(head);
+		//System.out.println(head);
 		createHeader(head, target,separator);
 		this.sumTarget = convertTransaction(scan, separator);
 		this.meanTarget = getSumTarget()/getNbTransaction();
